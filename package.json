@@ -1,0 +1,8 @@
+{
+  "name": "profile-card-svg",
+  "version": "1.0.0",
+  "description": "Dynamic GitHub profile status card generator",
+  "main": "api/card.js",
+  "type": "module",
+  "dependencies": {}
+}

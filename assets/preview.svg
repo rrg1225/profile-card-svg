@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="180" viewBox="0 0 880 180" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="880" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4f46e5" />
+      <stop offset="1" stop-color="#06b6d4" />
+    </linearGradient>
+  </defs>
+  <rect width="880" height="180" rx="24" fill="url(#g)" />
+  <rect x="28" y="26" width="140" height="128" rx="20" fill="rgba(255,255,255,0.12)" />
+  <circle cx="810" cy="50" r="34" fill="rgba(255,255,255,0.15)" />
+  <circle cx="770" cy="120" r="16" fill="rgba(255,255,255,0.15)" />
+  <text x="200" y="58" fill="#ffffff" font-family="Segoe UI, system-ui, sans-serif" font-size="28" font-weight="800">Hi, I'm Alice</text>
+  <text x="200" y="94" fill="rgba(255,255,255,0.88)" font-family="Segoe UI, system-ui, sans-serif" font-size="16">🚀 Full Stack Developer</text>
+  <text x="200" y="122" fill="rgba(255,255,255,0.75)" font-family="Segoe UI, system-ui, sans-serif" font-size="14">⚡ Building in public · Serverless · SVG</text>
+  <g transform="translate(200, 140)">
+    <rect x="0" y="0" width="98" height="28" rx="14" fill="rgba(255,255,255,0.18)" />
+    <text x="49" y="19" text-anchor="middle" fill="#ffffff" font-family="Courier New, monospace" font-size="12">React</text>
+  </g>
+  <g transform="translate(308, 140)">
+    <rect x="0" y="0" width="98" height="28" rx="14" fill="rgba(255,255,255,0.18)" />
+    <text x="49" y="19" text-anchor="middle" fill="#ffffff" font-family="Courier New, monospace" font-size="12">Node</text>
+  </g>
+  <g transform="translate(416, 140)">
+    <rect x="0" y="0" width="98" height="28" rx="14" fill="rgba(255,255,255,0.18)" />
+    <text x="49" y="19" text-anchor="middle" fill="#ffffff" font-family="Courier New, monospace" font-size="12">AI</text>
+  </g>
+</svg>
