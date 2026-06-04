@@ -1,5 +1,13 @@
 ﻿export default function handler(req, res) {
-  // 1. 获取用户链接中传入的自定义参数（带默认值防护）
+  const escapeHTML = (value) =>
+    String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
+  // 1. 获取用户链接中传入的自定义参数（带默认值防护）并立即转义
   const {
     name = "Developer",
     role = "Full Stack Engineer",
@@ -9,10 +17,15 @@
     width = "880"
   } = req.query;
 
+  const safeName = escapeHTML(name);
+  const safeRole = escapeHTML(role);
+  const safeStatus = escapeHTML(status);
+  const safeSkills = escapeHTML(skills);
+
   // 2. 统一参数处理
   const cardWidth = Number.parseInt(width, 10) || 880;
   const cardHeight = 180;
-  const skillArray = skills
+  const skillArray = safeSkills
     .split(",")
     .map((skill) => skill.trim())
     .filter(Boolean);
@@ -67,20 +80,18 @@
         <circle cx="${cardWidth - 60}" cy="56" r="34" fill="rgba(255,255,255,0.12)" />
         <circle cx="${cardWidth - 96}" cy="110" r="14" fill="rgba(255,255,255,0.15)" />
 
-        <text x="30" y="54" class="title">👋 Hi, I'm ${name}</text>
-        <text x="30" y="82" class="role">🚀 ${role}</text>
-        <text x="30" y="106" class="status">⚡ ${status}</text>
+        <text x="30" y="54" class="title">👋 Hi, I'm ${safeName}</text>
+        <text x="30" y="82" class="role">🚀 ${safeRole}</text>
+        <text x="30" y="106" class="status">⚡ ${safeStatus}</text>
 
         <g transform="translate(30, 124)">${skillTags}</g>
       </g>
     </svg>
   `;
 
-  // 6. 核心响应头设置：SVG 内容类型 + 强制无缓存
+  // 6. 核心响应头设置：SVG 内容类型 + 缓存策略
   res.setHeader("Content-Type", "image/svg+xml;charset=UTF-8");
-  res.setHeader("Cache-Control", "max-age=0, no-cache, no-store, must-revalidate");
-  res.setHeader("Pragma", "no-cache");
-  res.setHeader("Expires", "0");
+  res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=86400");
 
   return res.status(200).send(svgContent);
 }
