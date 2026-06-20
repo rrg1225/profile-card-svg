@@ -41,4 +41,11 @@ assert.doesNotMatch(response.body, /<Alice>/);
 assert.match(response.body, /&lt;Alice&gt;/);
 assert.match(response.body, /Open &amp; shipping/);
 
+const longTextResponse = invoke({
+  name: "A".repeat(80),
+  skills: "SuperLongFrameworkNameThatWouldOverflow"
+});
+assert.match(longTextResponse.body, /…/);
+assert.doesNotMatch(longTextResponse.body, /SuperLongFrameworkNameThatWouldOverflow/);
+
 console.log("profile-card-svg smoke test passed");

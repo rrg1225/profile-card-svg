@@ -9,6 +9,11 @@
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
 
+  const truncate = (value, max) => {
+    const text = String(value || "").trim();
+    return text.length > max ? `${text.slice(0, max - 1)}…` : text;
+  };
+
   // 1. 获取用户链接中传入的自定义参数（带默认值防护）并立即转义
   const {
     name = "Developer",
@@ -19,9 +24,9 @@
     width = "880"
   } = req.query;
 
-  const safeName = escapeHTML(name);
-  const safeRole = escapeHTML(role);
-  const safeStatus = escapeHTML(status);
+  const safeName = escapeHTML(truncate(name, 34));
+  const safeRole = escapeHTML(truncate(role, 48));
+  const safeStatus = escapeHTML(truncate(status, 64));
   const safeSkills = escapeHTML(skills);
 
   // 2. 统一参数处理
@@ -29,7 +34,7 @@
   const cardHeight = 180;
   const skillArray = safeSkills
     .split(",")
-    .map((skill) => skill.trim())
+    .map((skill) => truncate(skill, 12))
     .filter(Boolean);
   const visibleSkills = skillArray.slice(0, Math.max(1, Math.floor((cardWidth - 72) / 88)));
 
