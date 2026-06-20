@@ -112,6 +112,7 @@ Expires: 0
 | `theme` | string | 主题风格 | `theme=sunset` |
 | `status` | string | 自定义状态文案 | `status=Open%20for%20Collaboration` |
 | `width` | number | 卡片宽度，可选 | `width=960` |
+| `layout` | string | `standard` 或更窄的 `compact` | `layout=compact` |
 
 ### 🧪 最佳实践示例
 
@@ -216,6 +217,7 @@ That means:
 | `theme` | string | Theme preset | `theme=sunset` |
 | `status` | string | Custom status message | `status=Open%20for%20Collaboration` |
 | `width` | number | Card width (optional) | `width=960` |
+| `layout` | string | `standard` or narrower `compact` | `layout=compact` |
 
 ### 🧪 Example usage
 

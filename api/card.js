@@ -21,7 +21,8 @@
     skills = "JavaScript,React,Node",
     theme = "indigo",
     status = "Building in public",
-    width = "880"
+    width = "880",
+    layout = "standard"
   } = req.query;
 
   const safeName = escapeHTML(truncate(name, 34));
@@ -31,7 +32,8 @@
 
   // 2. 统一参数处理
   const cardWidth = clamp(Number.parseInt(width, 10) || 880, 520, 1200);
-  const cardHeight = 180;
+  const isCompact = layout === "compact";
+  const cardHeight = isCompact ? 150 : 180;
   const skillArray = safeSkills
     .split(",")
     .map((skill) => truncate(skill, 12))
@@ -84,15 +86,15 @@
 
       <g class="animate-card">
         <rect width="${cardWidth}" height="${cardHeight}" rx="24" fill="url(#bg-gradient)" />
-        <rect x="24" y="24" width="120" height="120" rx="18" fill="rgba(255,255,255,0.08)" />
+        <rect x="24" y="24" width="${isCompact ? 96 : 120}" height="${isCompact ? 96 : 120}" rx="18" fill="rgba(255,255,255,0.08)" />
         <circle cx="${cardWidth - 60}" cy="56" r="34" fill="rgba(255,255,255,0.12)" />
-        <circle cx="${cardWidth - 96}" cy="110" r="14" fill="rgba(255,255,255,0.15)" />
+        <circle cx="${cardWidth - 96}" cy="${isCompact ? 96 : 110}" r="14" fill="rgba(255,255,255,0.15)" />
 
         <text x="30" y="54" class="title">👋 Hi, I'm ${safeName}</text>
         <text x="30" y="82" class="role">🚀 ${safeRole}</text>
         <text x="30" y="106" class="status">⚡ ${safeStatus}</text>
 
-        <g transform="translate(30, 124)">${skillTags}</g>
+        <g transform="translate(30, ${isCompact ? 116 : 124})">${skillTags}</g>
       </g>
     </svg>
   `;

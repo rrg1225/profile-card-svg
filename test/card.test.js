@@ -48,4 +48,7 @@ const longTextResponse = invoke({
 assert.match(longTextResponse.body, /…/);
 assert.doesNotMatch(longTextResponse.body, /SuperLongFrameworkNameThatWouldOverflow/);
 
+const compactResponse = invoke({ layout: "compact" });
+assert.match(compactResponse.body, /height="150"/);
+
 console.log("profile-card-svg smoke test passed");
