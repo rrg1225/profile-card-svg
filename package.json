@@ -4,5 +4,16 @@
   "description": "Dynamic GitHub profile status card generator",
   "main": "api/card.js",
   "type": "module",
+  "scripts": {
+    "test": "node test/card.test.js"
+  },
+  "keywords": [
+    "github-profile",
+    "svg",
+    "serverless",
+    "vercel",
+    "profile-card"
+  ],
+  "license": "MIT",
   "dependencies": {}
 }

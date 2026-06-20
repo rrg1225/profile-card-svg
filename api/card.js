@@ -1,4 +1,6 @@
 ﻿export default function handler(req, res) {
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
   const escapeHTML = (value) =>
     String(value)
       .replace(/&/g, "&amp;")
@@ -23,12 +25,13 @@
   const safeSkills = escapeHTML(skills);
 
   // 2. 统一参数处理
-  const cardWidth = Number.parseInt(width, 10) || 880;
+  const cardWidth = clamp(Number.parseInt(width, 10) || 880, 520, 1200);
   const cardHeight = 180;
   const skillArray = safeSkills
     .split(",")
     .map((skill) => skill.trim())
     .filter(Boolean);
+  const visibleSkills = skillArray.slice(0, Math.max(1, Math.floor((cardWidth - 72) / 88)));
 
   // 3. 预定义主题色彩映射
   const themeMap = {
@@ -43,8 +46,8 @@
   const currentTheme = themeMap[theme] || themeMap.indigo;
 
   // 4. 生成技能标签 SVG 片段
-  const skillTags = skillArray.length
-    ? skillArray
+  const skillTags = visibleSkills.length
+    ? visibleSkills
         .map((skill, index) => `
         <g transform="translate(${index * 88}, 0)">
           <rect x="0" y="0" width="80" height="26" rx="12" fill="rgba(255,255,255,0.18)" />
@@ -91,7 +94,9 @@
 
   // 6. 核心响应头设置：SVG 内容类型 + 缓存策略
   res.setHeader("Content-Type", "image/svg+xml;charset=UTF-8");
-  res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=86400");
+  res.setHeader("Cache-Control", "max-age=0, no-cache, no-store, must-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
 
   return res.status(200).send(svgContent);
 }
