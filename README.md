@@ -12,6 +12,7 @@
 > 当别人引用你的卡片时，他们的页面将成为你的“流动广告牌”，带来源源不断的曝光与关注。
 
 > Resume and interview brief: [PORTFOLIO.md](PORTFOLIO.md)
+> Enterprise architecture: [docs/ENTERPRISE_ARCHITECTURE.md](docs/ENTERPRISE_ARCHITECTURE.md)
 
 ---
 
