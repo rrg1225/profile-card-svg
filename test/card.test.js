@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import handler from "../api/card.js";
 
-function invoke(query = {}) {
+function invoke(query = {}, headersIn = {}) {
   const headers = {};
   let statusCode = 0;
   let body = "";
@@ -20,7 +20,7 @@ function invoke(query = {}) {
     }
   };
 
-  handler({ query }, res);
+  handler({ query, headers: headersIn }, res);
   return { statusCode, headers, body };
 }
 
@@ -35,6 +35,8 @@ const response = invoke({
 
 assert.equal(response.statusCode, 200);
 assert.equal(response.headers["content-type"], "image/svg+xml;charset=UTF-8");
+assert.equal(response.headers["x-content-type-options"], "nosniff");
+assert.match(response.headers.etag, /^"[a-f0-9]{16}"$/);
 assert.match(response.headers["cache-control"], /no-store/);
 assert.match(response.body, /width="1200"/);
 assert.doesNotMatch(response.body, /<Alice>/);
@@ -50,5 +52,9 @@ assert.doesNotMatch(longTextResponse.body, /SuperLongFrameworkNameThatWouldOverf
 
 const compactResponse = invoke({ layout: "compact" });
 assert.match(compactResponse.body, /height="150"/);
+
+const cachedResponse = invoke({ layout: "compact" }, { "if-none-match": compactResponse.headers.etag });
+assert.equal(cachedResponse.statusCode, 304);
+assert.equal(cachedResponse.body, "");
 
 console.log("profile-card-svg smoke test passed");

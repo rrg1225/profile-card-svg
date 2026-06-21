@@ -1,4 +1,6 @@
-﻿export default function handler(req, res) {
+import { createHash } from "node:crypto";
+
+export default function handler(req, res) {
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
   const escapeHTML = (value) =>
@@ -100,10 +102,18 @@
   `;
 
   // 6. 核心响应头设置：SVG 内容类型 + 缓存策略
+  const etag = `"${createHash("sha256").update(svgContent).digest("hex").slice(0, 16)}"`;
+
   res.setHeader("Content-Type", "image/svg+xml;charset=UTF-8");
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("ETag", etag);
   res.setHeader("Cache-Control", "max-age=0, no-cache, no-store, must-revalidate");
   res.setHeader("Pragma", "no-cache");
   res.setHeader("Expires", "0");
+
+  if (req.headers?.["if-none-match"] === etag) {
+    return res.status(304).send("");
+  }
 
   return res.status(200).send(svgContent);
 }
