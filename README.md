@@ -11,6 +11,8 @@
 > 让你的 GitHub 个人主页或 README 只需一行链接，就能生成一张实时动态的状态卡片。
 > 当别人引用你的卡片时，他们的页面将成为你的“流动广告牌”，带来源源不断的曝光与关注。
 
+> Resume and interview brief: [PORTFOLIO.md](PORTFOLIO.md)
+
 ---
 
 | 🚀 零门槛部署 | 🧲 病毒式流量 | 🖼️ SVG 原生渲染 | 🔄 实时更新 |
