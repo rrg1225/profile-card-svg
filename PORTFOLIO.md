@@ -2,7 +2,7 @@
 
 ## Resume Bullets
 
-- Built a serverless SVG profile-card generator for GitHub README pages with parameterized themes, layout options, cache-control headers, and smoke tests.
+- Built a serverless SVG profile-card generator for GitHub README pages with parameterized themes, layout options, cache-control headers, and zero runtime dependencies.
 - Implemented dynamic SVG rendering without a browser build step, making the service lightweight enough for free serverless deployment.
 - Designed cache-bypass behavior for GitHub Camo so profile cards can update predictably.
 
@@ -16,7 +16,7 @@
 
 ```bash
 npm ci
-npm test
+npm run check
 ```
 
 ## Interview Talking Points
