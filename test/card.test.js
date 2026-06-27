@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildCardSvg, buildEtag, normalizeCardQuery } from "../api/card.js";
+import { buildCardSvg, buildEtag, cacheControlFor, normalizeCardQuery } from "../api/card.js";
 
 test("normalizes card input safely", () => {
   const card = normalizeCardQuery({
@@ -21,4 +21,10 @@ test("builds cacheable SVG output", () => {
   assert.match(svg, /<svg/);
   assert.match(svg, /Demo/);
   assert.match(buildEtag(svg), /^"[a-f0-9]{16}"$/);
+});
+
+test("selects cache policy from query", () => {
+  assert.match(cacheControlFor({}), /s-maxage=300/);
+  assert.match(cacheControlFor({ cache: "static" }), /immutable/);
+  assert.match(cacheControlFor({ cache: "live" }), /must-revalidate/);
 });

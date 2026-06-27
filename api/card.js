@@ -113,6 +113,12 @@ export function buildEtag(svgContent) {
   return `"${createHash("sha256").update(svgContent).digest("hex").slice(0, 16)}"`;
 }
 
+export function cacheControlFor(query = {}) {
+  if (query.cache === "static") return "public, max-age=86400, immutable";
+  if (query.cache === "live") return "no-cache, max-age=0, must-revalidate";
+  return "public, max-age=300, s-maxage=300, stale-while-revalidate=600";
+}
+
 export default function handler(req, res) {
   const svgContent = buildCardSvg(req.query);
   const etag = buildEtag(svgContent);
@@ -120,9 +126,7 @@ export default function handler(req, res) {
   res.setHeader("Content-Type", "image/svg+xml;charset=UTF-8");
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("ETag", etag);
-  res.setHeader("Cache-Control", "max-age=0, no-cache, no-store, must-revalidate");
-  res.setHeader("Pragma", "no-cache");
-  res.setHeader("Expires", "0");
+  res.setHeader("Cache-Control", cacheControlFor(req.query));
 
   if (req.headers?.["if-none-match"] === etag) {
     return res.status(304).send("");
