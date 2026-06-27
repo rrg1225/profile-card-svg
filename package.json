@@ -5,7 +5,8 @@
   "main": "api/card.js",
   "type": "module",
   "scripts": {
-    "check": "node --check api/card.js"
+    "check": "node --check api/card.js",
+    "test": "node --test test/*.test.js"
   },
   "keywords": [
     "github-profile",

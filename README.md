@@ -46,6 +46,7 @@
 ```bash
 npm install
 npm run check
+npm test
 ```
 
 ## Architecture
@@ -57,6 +58,18 @@ GitHub README image URL
   -> SVG renderer
   -> cache-aware response
 ```
+
+## Quality Gates
+
+- `npm run check` validates the serverless function syntax.
+- `npm test` covers query normalization, escaping, SVG output, and ETag generation.
+- CI runs on pull requests and `main`.
+
+## Roadmap
+
+- Add signed preset URLs for teams that want shared profile themes.
+- Add optional GitHub stats blocks while preserving zero runtime dependencies.
+- Add visual regression snapshots for generated SVG themes.
 
 ## License
 
