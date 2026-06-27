@@ -7,7 +7,9 @@
   "scripts": {
     "check": "node --check api/card.js",
     "test": "node --test test/*.test.js",
-    "health": "node scripts/project-health.js"
+    "health": "node scripts/project-health.js",
+    "ops:check": "node scripts/ops-check.js",
+    "ci:local": "npm run health && npm run ops:check && npm test"
   },
   "keywords": [
     "github-profile",
@@ -16,5 +18,8 @@
     "vercel",
     "profile-card"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  }
 }
