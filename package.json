@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "check": "node --check api/card.js",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "health": "node scripts/project-health.js"
   },
   "keywords": [
     "github-profile",
@@ -15,6 +16,5 @@
     "vercel",
     "profile-card"
   ],
-  "license": "MIT",
-  "dependencies": {}
+  "license": "MIT"
 }
